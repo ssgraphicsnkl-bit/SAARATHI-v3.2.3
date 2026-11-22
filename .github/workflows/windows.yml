@@ -1,0 +1,20 @@
+name: Build SAARATHI Windows EXE
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+      - name: Run regression tests (Excel/CSV + Stability)
+        run: npm test
+      - name: Build Windows installer
+        run: npm run dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SAARATHI-Windows-Installer
+          path: dist/*.exe
