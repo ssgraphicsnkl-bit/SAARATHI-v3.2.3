@@ -1,0 +1,60 @@
+{
+  "name": "saarathi-personal",
+  "version": "3.2.3",
+  "description": "SAARATHI stable v3.1.3 base with v2.2.6 splash, bulk import, attendance stabilization, custom date range, guarded restore",
+  "main": "main.js",
+  "author": "Personal Business Edition",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "build:windows": "electron-builder --win nsis --x64 --publish never",
+    "dist": "electron-builder --win nsis --x64 --publish never",
+    "test": "node tests/bulk-reader.test.js && node tests/stability.test.js"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "in.saarathi.personal",
+    "productName": "SAARATHI",
+    "files": [
+      "index.html",
+      "main.js",
+      "assets/**/*",
+      "package.json",
+      "preload.js",
+      "database/**/*",
+      "splash.html",
+      "bulk-reader.js"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/saarathi.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SAARATHI",
+      "installerIcon": "assets/saarathi.ico",
+      "uninstallerIcon": "assets/saarathi.ico"
+    },
+    "artifactName": "SAARATHI-Setup-${version}-${arch}.${ext}",
+    "asar": true
+  },
+  "dependencies": {
+    "sql.js": "^1.13.0"
+  }
+}
